@@ -185,6 +185,10 @@ print("\nThreshold:", threshold)
 # ================================================
 # Peformance validation
 # ================================================
+
+all_detectRR = []
+all_targetsRR = []
+
 ### TRAINING PERFORMANCE ###
 print("\n================================================")
 print("TRAINING PERFORMANCE")
@@ -205,13 +209,14 @@ for patient in range(1, 5):
         f"Specificity={specificity:.3f}"
     )
 
+    # Store per patient data
+    all_detectRR.append(detectRR)
+    all_targetsRR.append(targetsRR)
+
 ### TEST PERFORMANCE ###
 print("\n================================================")
 print("TEST PERFORMANCE")
 print("================================================")
-
-all_detectRR = []
-all_targetsRR = []
 
 for patient in range(5, 8):
     X = patient_data[patient]["X"]
@@ -233,7 +238,7 @@ for patient in range(5, 8):
     all_targetsRR.append(targetsRR)
 
 
-### OVERALL TEST PERFORMANCE ###
+### OVERALL PERFORMANCE ###
 # Concatenate all RR predictions
 all_detectRR = np.hstack(all_detectRR)
 all_targetsRR = np.hstack(all_targetsRR)
@@ -245,7 +250,7 @@ overall_sens, overall_spec = evaluate_performance(
 )
 
 print("\n================================================")
-print("OVERALL TEST PERFORMANCE")
+print("OVERALL PERFORMANCE")
 print("================================================")
 
 print(f"Sensitivity : {overall_sens:.3f}")
